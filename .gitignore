@@ -1,0 +1,7 @@
+# OS stuff
+.DS_Store
+
+# Vagrant stuff
+vagrant-lamp/.vagrant/
+vagrant-moloch/.vagrant/
+vagrant-splunk/.vagrant/
