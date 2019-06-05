@@ -1,0 +1,38 @@
+VAGRANT_DISABLE_VBOXSYMLINKCREATE = 1
+VAGRANTFILE_API_VERSION = "2"
+
+if ARGV[0] == "up"
+    puts "Check if exist Vagrant box debian/stretch64."
+    system('./script/check_box.sh')
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    if File.exists?(File.expand_path("./packages/splunk-7.2.5.deb"))
+        config.vm.provision "file", source: "./packages/splunk-7.2.5.deb", destination: "/tmp/splunk-7.2.5.deb"
+    end
+
+    VM_SPLUNK = {
+        :box => "debian/stretch64",
+        :memory => 2048,
+        :cpus => 1,
+        :hostname => "vagrant-splunk",
+        :package => "splunk-7.2.5.deb"
+    }
+
+    config.vm.define "vagrant-splunk" do |config|
+        config.vm.box = VM_SPLUNK[:box]
+        config.vm.boot_timeout = 600
+        config.vm.hostname = "#{VM_SPLUNK[:hostname]}"
+        config.vm.network "forwarded_port", guest: 8000, host: 8000, disabled: false
+        config.vm.synced_folder "share", "/vagrant/share", owner: "vagrant", group: "vagrant", create: true, disabled: true
+
+        config.vm.provider "virtualbox" do |vb|
+            vb.name = "#{VM_SPLUNK[:hostname]}"
+            vb.memory = VM_SPLUNK[:memory]
+            vb.cpus = VM_SPLUNK[:cpus]
+        end
+
+        config.vm.provision :shell, :path => "./script/bootstrap-debian-base.sh"
+        config.vm.provision :shell, :path => "./script/bootstrap-debian-splunk.sh", :args => "#{VM_SPLUNK[:package]}"
+    end
+end
