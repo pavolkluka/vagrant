@@ -29,7 +29,7 @@ TO
 </pre>
 
 List of files and their descriptions.
-1. splunk/**Vagrantfile**
+1. vagrant-splunk/**Vagrantfile**
 By default in this config file (line 27) is config.vm.synced_folder disabled: true. After first run (vagrant up), change:
 > config.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", disabled: **true**
 
@@ -37,13 +37,13 @@ TO
 
 > config.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", disabled: **false**
 
-2. **splunk**/script/**check_box.sh**
+2. **vagrant-splunk**/script/**check_box.sh**
 This script check if you have installed vagrant box **debian/stretch64**. If not, this script just install needed box.
 
-3. **splunk**/script/**bootstrap-debian-base.sh**
+3. **vagrant-splunk**/script/**bootstrap-debian-base.sh**
 This main script, which install latest VirtualBox Guest Additions for Linux and do some basic configuration of debian.
 
-4. **splunk**/script/**bootstrap-debian-splunk.sh**
+4. **vagrant-splunk**/script/**bootstrap-debian-splunk.sh**
 This script install Splunk, create Administrator user and enable starting Splunk on boot.
 
 <pre>
