@@ -1,7 +1,7 @@
 # vagrant
 All my Vagrant VMs
 
-## splunk
+## vagrant-splunk
 Before starting this vagrant you have to download splunk yourself (*.deb) and save it to folder **packages**. Then you have to made some changes in Vagrantfile. For example if you save splunk package as splunk-7.2.deb, then do this:
 
 FROM (Vagrantfile lines:10,11,12)
