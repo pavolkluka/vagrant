@@ -7,8 +7,8 @@
 
 # Vagrant stuff
 vagrant-lamp/.vagrant/
-vagrant-lamp/.vagrant/share
+vagrant-lamp/share/
 vagrant-moloch/.vagrant/
-vagrant-moloch/.vagrant/share
+vagrant-moloch/share/
 vagrant-splunk/.vagrant/
-vagrant-splunk/.vagrant/share/
+vagrant-splunk/share/
