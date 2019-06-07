@@ -1,6 +1,10 @@
 # OS stuff
 .DS_Store
 
+# DEB packages
+*.deb
+*.tgz
+
 # Vagrant stuff
 vagrant-lamp/.vagrant/
 vagrant-moloch/.vagrant/
