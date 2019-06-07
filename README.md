@@ -2,18 +2,18 @@
 All my Vagrant VMs
 
 ## vagrant-splunk
-Before starting this vagrant you have to download splunk yourself (*.deb) and save it to folder **packages**. Then you have to made some changes in Vagrantfile. For example if you save splunk package as splunk-7.2.deb, then do this:
+Before starting this vagrant you have to download splunk yourself (*.deb) and save it to folder **packages**. Then you have to made some changes in Vagrantfile. For example if you save splunk package as splunk-7.3.deb, then do this:
 
 FROM (Vagrantfile lines:10,11,12)
 <pre>
-if File.exists?(File.expand_path("./packages/splunk-7.2.5.deb"))
-    config.vm.provision "file", source: "./packages/splunk-7.2.5.deb", destination: "/tmp/splunk-7.2.5.deb"
+if File.exists?(File.expand_path("./packages/splunk-7.3.0.deb"))
+    config.vm.provision "file", source: "./packages/splunk-7.3.0.deb", destination: "/tmp/splunk-7.3.0.deb"
 end
 </pre>
 TO
 <pre>
-if File.exists?(File.expand_path("./packages/splunk-7.2.deb"))
-    config.vm.provision "file", source: "./packages/splunk-7.2.deb", destination: "/tmp/splunk-7.2.deb"
+if File.exists?(File.expand_path("./packages/splunk-7.3.deb"))
+    config.vm.provision "file", source: "./packages/splunk-7.3.deb", destination: "/tmp/splunk-7.3.deb"
 end
 </pre>
 
@@ -21,11 +21,11 @@ and
 
 FROM (Vagrantfile line 19)
 <pre>
-:package => "splunk-7.2.5.deb"
+:package => "splunk-7.3.0.deb"
 </pre>
 TO
 <pre>
-:package => "splunk-7.2.deb"
+:package => "splunk-7.3.deb"
 </pre>
 
 List of files and their descriptions.
