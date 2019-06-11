@@ -1,0 +1,33 @@
+VAGRANT_DISABLE_VBOXSYMLINKCREATE = 1
+VAGRANTFILE_API_VERSION = "2"
+
+if ARGV[0] == "up"
+    puts "Check if exist Vagrant box debian/stretch64."
+    system('./script/check_box.sh')
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    VM_MINEMELD = {
+        :box => "debian/stretch64",
+        :memory => 2048,
+        :cpus => 2,
+        :hostname => "vagrant-minemeld"
+    }
+
+    config.vm.define "vagrant-minemeld" do |config|
+        config.vm.box = VM_MINEMELD[:box]
+        config.vm.boot_timeout = 600
+        config.vm.hostname = "#{VM_MINEMELD[:hostname]}"
+        config.vm.network "forwarded_port", guest: 5000, host: 5000, disabled: false
+        config.vm.synced_folder "share", "/vagrant/share", owner: "vagrant", group: "vagrant", create: true, disabled: true
+
+        config.vm.provider "virtualbox" do |vb|
+            vb.name = "#{VM_MINEMELD[:hostname]}"
+            vb.memory = VM_MINEMELD[:memory]
+            vb.cpus = VM_MINEMELD[:cpus]
+        end
+
+        config.vm.provision :shell, :path => "./script/bootstrap-debian-base.sh"
+        # config.vm.provision :shell, :path => "./script/bootstrap-debian-minemeld.sh"
+    end
+end
