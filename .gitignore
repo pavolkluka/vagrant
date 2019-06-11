@@ -12,3 +12,5 @@ vagrant-moloch/.vagrant/
 vagrant-moloch/share/
 vagrant-splunk/.vagrant/
 vagrant-splunk/share/
+vagrant-minemeld/.vagrant/
+vagrant-minemeld/share/
