@@ -1,0 +1,33 @@
+VAGRANT_DISABLE_VBOXSYMLINKCREATE = 1
+VAGRANTFILE_API_VERSION = "2"
+
+if ARGV[0] == "up"
+    puts "Check if exist Vagrant box debian/stretch64."
+    system('./script/check_box.sh')
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    VM_MOLOCH = {
+        :box => "debian/stretch64",
+        :memory => 2048,
+        :cpus => 2,
+        :hostname => "vagrant-moloch",
+    }
+
+    config.vm.define "vagrant-moloch" do |config|
+        config.vm.box = VM_MOLOCH[:box]
+        config.vm.boot_timeout = 600
+        config.vm.hostname = "#{VM_MOLOCH[:hostname]}"
+        config.vm.network "forwarded_port", guest: 8005, host: 8005, disabled: false
+        config.vm.network "private_network", ip: "192.168.57.100", auto_config: false
+        config.vm.synced_folder "share", "/vagrant/share", owner: "vagrant", group: "vagrant", create: true, disabled: false
+
+        config.vm.provider "virtualbox" do |vb|
+            vb.name = "#{VM_MOLOCH[:hostname]}"
+            vb.memory = VM_MOLOCH[:memory]
+            vb.cpus = VM_MOLOCH[:cpus]
+        end
+
+        config.vm.provision :shell, :path => "./script/bootstrap-debian-moloch.sh"
+    end
+end
