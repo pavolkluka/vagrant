@@ -17,6 +17,7 @@ BIN_CAT="$( which cat )"
 BIN_CP="$( which cp )"
 BIN_WGET="$( which wget )"
 BIN_MKDIR="$( which mkdir )"
+BIN_USERMOD="$( which usermod )"
 
 sudo apt-get update && sudo apt-get upgrade
 echo "Install gcc, git, python2.7-dev, libffi-dev, libssl-dev."
@@ -39,6 +40,6 @@ echo "Add vagrant user to minemeld group."
 sudo /usr/sbin/usermod -a -G minemeld vagrant
 
 echo "Check if minemeld running."
-sudo -u minemeld /opt/minemeld/engine/current/bin/supervisorctl -c /opt/minemeld/supervisor/config/supervisord.conf status
+sudo -u $BIN_USERMOD /opt/minemeld/engine/current/bin/supervisorctl -c /opt/minemeld/supervisor/config/supervisord.conf status
 
 echo "Finish."
