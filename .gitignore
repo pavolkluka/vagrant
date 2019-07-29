@@ -14,3 +14,7 @@ vagrant-splunk/.vagrant/
 vagrant-splunk/share/
 vagrant-minemeld/.vagrant/
 vagrant-minemeld/share/
+
+# Not ready repos
+vagrant-minemeld/
+vagrant-moloch/
